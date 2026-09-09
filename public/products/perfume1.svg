@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#081914"/>
+      <stop offset="100%" style="stop-color:#0B211B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="35%">
+      <stop offset="0%" style="stop-color:#D8A94A;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#D8A94A;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#bg)"/>
+  <circle cx="150" cy="135" r="110" fill="url(#glow)"/>
+  <rect x="120" y="50" width="60" height="25" rx="4" fill="none" stroke="#D8A94A" stroke-width="1.2" opacity="0.5"/>
+  <rect x="130" y="75" width="40" height="10" rx="2" fill="none" stroke="#D8A94A" stroke-width="0.8" opacity="0.3"/>
+  <rect x="100" y="85" width="100" height="130" rx="6" fill="none" stroke="#D8A94A" stroke-width="1.5" opacity="0.5"/>
+  <rect x="110" y="95" width="80" height="50" rx="3" fill="#D8A94A" opacity="0.05"/>
+  <text x="150" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#D8A94A" opacity="0.6">LUXE</text>
+  <text x="150" y="148" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#AEB8B3" opacity="0.4" letter-spacing="2">NOIR INTENSE</text>
+  <text x="150" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#D8A94A" opacity="0.4">EAU DE PARFUM</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#081914"/>
+      <stop offset="100%" style="stop-color:#0B211B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" style="stop-color:#8BE8A7;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#8BE8A7;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#bg)"/>
+  <circle cx="150" cy="150" r="120" fill="url(#glow)"/>
+  <rect x="75" y="85" width="150" height="100" rx="10" fill="none" stroke="#8BE8A7" stroke-width="1.5" opacity="0.4"/>
+  <path d="M105 85 Q105 60 150 60 Q195 60 195 85" fill="none" stroke="#8BE8A7" stroke-width="1.2" opacity="0.3"/>
+  <rect x="90" y="100" width="50" height="35" rx="3" fill="none" stroke="#D8A94A" stroke-width="0.6" opacity="0.2"/>
+  <line x1="75" y1="135" x2="225" y2="135" stroke="#D8A94A" stroke-width="0.4" opacity="0.2"/>
+  <rect x="90" y="150" width="120" height="1" fill="#8BE8A7" opacity="0.1"/>
+  <text x="150" y="250" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#8BE8A7" opacity="0.4">TRAVEL BAG</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#081914"/>
+      <stop offset="100%" style="stop-color:#0B211B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" style="stop-color:#AEB8B3;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#AEB8B3;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#bg)"/>
+  <circle cx="150" cy="145" r="120" fill="url(#glow)"/>
+  <circle cx="150" cy="145" r="62" fill="none" stroke="#AEB8B3" stroke-width="2.5" opacity="0.4"/>
+  <circle cx="150" cy="145" r="52" fill="none" stroke="#AEB8B3" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="150" cy="145" r="3" fill="#AEB8B3" opacity="0.5"/>
+  <line x1="150" y1="145" x2="150" y2="98" stroke="#AEB8B3" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <line x1="150" y1="145" x2="188" y2="130" stroke="#AEB8B3" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+  <rect x="144" y="68" width="12" height="18" rx="3" fill="none" stroke="#AEB8B3" stroke-width="1" opacity="0.3"/>
+  <rect x="144" y="205" width="12" height="18" rx="3" fill="none" stroke="#AEB8B3" stroke-width="1" opacity="0.3"/>
+  <text x="150" y="140" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#AEB8B3" opacity="0.4">LUXE</text>
+  <text x="150" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#AEB8B3" opacity="0.3">DIVER WATCH</text>
+</svg>

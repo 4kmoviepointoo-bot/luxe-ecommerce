@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#081914"/>
+      <stop offset="100%" style="stop-color:#0B211B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="35%">
+      <stop offset="0%" style="stop-color:#173C2D;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#173C2D;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#bg)"/>
+  <circle cx="150" cy="135" r="110" fill="url(#glow)"/>
+  <rect x="125" y="45" width="50" height="20" rx="3" fill="none" stroke="#173C2D" stroke-width="1" opacity="0.5"/>
+  <rect x="135" y="65" width="30" height="8" rx="2" fill="none" stroke="#173C2D" stroke-width="0.6" opacity="0.3"/>
+  <rect x="100" y="73" width="100" height="145" rx="10" fill="none" stroke="#173C2D" stroke-width="1.8" opacity="0.5"/>
+  <rect x="110" y="85" width="80" height="45" rx="4" fill="#173C2D" opacity="0.08"/>
+  <text x="150" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#173C2D" opacity="0.6">LUXE</text>
+  <text x="150" y="130" text-anchor="middle" font-family="sans-serif" font-size="5" fill="#AEB8B3" opacity="0.3" letter-spacing="2">EMERALD OUD</text>
+  <text x="150" y="260" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#173C2D" opacity="0.4">PARFUM</text>
+</svg>
