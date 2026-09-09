@@ -231,12 +231,12 @@ export default function AccountDashboard({
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "orders", filter: `user_id=eq.${user.id}` },
-        (payload) => {
+        (payload: { eventType: string }) => {
           console.log("Orders Realtime Event:", payload.eventType);
           fetchUserData();
         },
       )
-      .subscribe((status) => {
+      .subscribe((status: string) => {
         console.log("Realtime subscription status:", status);
       });
 

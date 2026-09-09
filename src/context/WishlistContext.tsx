@@ -81,15 +81,15 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const mountedRef = useRef(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      const uid = data.session?.user?.id ?? null;
+    supabase.auth.getSession().then((result: { data: { session: { user: { id: string } } | null } }) => {
+      const uid = result.data.session?.user?.id ?? null;
       console.log("WishlistContext: initial session user:", uid);
       setUserId(uid);
     });
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((_event: string, session: { user: { id: string } } | null) => {
       const uid = session?.user?.id ?? null;
       console.log("WishlistContext: auth state changed, user:", uid);
       setUserId(uid);
@@ -105,12 +105,12 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         .from("wishlist")
         .select("product_id")
         .eq("user_id", userId)
-        .then(({ data, error }) => {
-          if (error) {
-            console.error("Wishlist Hydrate Error:", error.message);
-          } else if (data) {
-            console.log("Wishlist Hydrated:", data.length, "items");
-            setIds(data.map((r) => r.product_id));
+        .then((result: { data: { product_id: string }[] | null; error: { message: string } | null }) => {
+          if (result.error) {
+            console.error("Wishlist Hydrate Error:", result.error.message);
+          } else if (result.data) {
+            console.log("Wishlist Hydrated:", result.data.length, "items");
+            setIds(result.data.map((r: { product_id: string }) => r.product_id));
           }
           setLoaded(true);
         });

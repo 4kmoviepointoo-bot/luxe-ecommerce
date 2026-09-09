@@ -82,11 +82,11 @@ export default function AuthPage() {
   useEffect(() => {
     console.log("URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
     console.log("Key Exists:", !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-    supabase.auth.getSession().then(({ data, error }) => {
-      if (error) {
-        console.error("Supabase Connection Error:", error.message);
+    supabase.auth.getSession().then((result: { data: unknown; error: { message: string } | null }) => {
+      if (result.error) {
+        console.error("Supabase Connection Error:", result.error.message);
       } else {
-        console.log("Supabase Connected Successfully!", data);
+        console.log("Supabase Connected Successfully!", result.data);
       }
     });
   }, []);

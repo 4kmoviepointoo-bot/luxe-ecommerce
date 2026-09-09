@@ -1,8 +1,8 @@
-import { createBrowserClient, type SupabaseClient } from "@supabase/ssr";
+import { createBrowserClient } from "@supabase/ssr";
 
-let _supabase: SupabaseClient | null = null;
+let _supabase: ReturnType<typeof createBrowserClient> | null = null;
 
-function getClient(): SupabaseClient {
+function getClient() {
   if (!_supabase) {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -17,7 +17,7 @@ function getClient(): SupabaseClient {
 }
 
 // Proxy so `supabase.auth`, `supabase.from()` etc. all work
-export const supabase = new Proxy({} as SupabaseClient, {
+export const supabase = new Proxy({} as ReturnType<typeof createBrowserClient>, {
   get(_target, prop) {
     const client = getClient();
     const value = (client as Record<string | symbol, unknown>)[prop];
