@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { PRODUCTS } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
@@ -106,10 +106,22 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<Tab>("Description");
   const [activeImage, setActiveImage] = useState(0);
+  const [reviewName, setReviewName] = useState("");
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewText, setReviewText] = useState("");
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [userReviews, setUserReviews] = useState<{ name: string; rating: number; date: string; text: string; verified: boolean }[]>([]);
   const { addItem } = useCart();
   const { toggle, has } = useWishlist();
   const { triggerFly } = useFlyToCart();
   const addBtnRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(`reviews-${id}`);
+      if (stored) setUserReviews(JSON.parse(stored));
+    } catch {}
+  }, [id]);
 
   if (!product) {
     return (
@@ -752,19 +764,212 @@ export default function ProductDetailPage() {
                               </div>
                             </div>
                             <p className="text-xs mt-1" style={{ color: "#6B7280" }}>
-                              Based on {product.reviews.toLocaleString()} reviews
+                              Based on {(product.reviews + userReviews.length).toLocaleString()} reviews
                             </p>
                           </div>
+                          <button
+                            onClick={() => setShowReviewForm(!showReviewForm)}
+                            className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300"
+                            style={{
+                              backgroundColor: showReviewForm ? "rgba(64,138,113,0.25)" : "rgba(64,138,113,0.1)",
+                              color: "#408A71",
+                              border: "1px solid rgba(64,138,113,0.3)",
+                            }}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>
+                            </svg>
+                            {showReviewForm ? "Cancel" : "Write a Review"}
+                          </button>
                         </div>
+
+                        {/* Review Form */}
+                        <AnimatePresence>
+                          {showReviewForm && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div
+                                className="rounded-2xl p-5 mb-4"
+                                style={{
+                                  backgroundColor: "#0A1613",
+                                  border: "1px solid rgba(64,138,113,0.2)",
+                                }}
+                              >
+                                <h4 className="text-sm font-semibold mb-4" style={{ color: "#FFFFFF" }}>
+                                  Share Your Experience
+                                </h4>
+
+                                {/* Star Rating */}
+                                <div className="mb-4">
+                                  <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: "#6B7280" }}>
+                                    Your Rating
+                                  </p>
+                                  <div className="flex items-center gap-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                      <button
+                                        key={star}
+                                        onClick={() => setReviewRating(star)}
+                                        className="transition-transform hover:scale-110"
+                                      >
+                                        <Star
+                                          className={`h-6 w-6 transition-colors ${
+                                            star <= reviewRating
+                                              ? "fill-[#D8A94A] text-[#D8A94A]"
+                                              : "fill-white/10 text-white/10 hover:fill-white/20"
+                                          }`}
+                                        />
+                                      </button>
+                                    ))}
+                                    <span className="ml-2 text-xs" style={{ color: "#6B7280" }}>
+                                      {reviewRating}/5
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {/* Name */}
+                                <div className="mb-4">
+                                  <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: "#6B7280" }}>
+                                    Your Name
+                                  </p>
+                                  <input
+                                    type="text"
+                                    value={reviewName}
+                                    onChange={(e) => setReviewName(e.target.value)}
+                                    placeholder="e.g. John D."
+                                    className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
+                                    style={{
+                                      backgroundColor: "#081814",
+                                      border: "1px solid rgba(64,138,113,0.2)",
+                                      color: "#FFFFFF",
+                                    }}
+                                  />
+                                </div>
+
+                                {/* Review Text */}
+                                <div className="mb-4">
+                                  <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: "#6B7280" }}>
+                                    Your Review
+                                  </p>
+                                  <textarea
+                                    value={reviewText}
+                                    onChange={(e) => setReviewText(e.target.value)}
+                                    placeholder="Tell us what you think about this product..."
+                                    rows={4}
+                                    className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all resize-none"
+                                    style={{
+                                      backgroundColor: "#081814",
+                                      border: "1px solid rgba(64,138,113,0.2)",
+                                      color: "#FFFFFF",
+                                    }}
+                                  />
+                                </div>
+
+                                {/* Submit */}
+                                <button
+                                  onClick={() => {
+                                    if (!reviewName.trim() || !reviewText.trim()) return;
+                                    const newReview = {
+                                      name: reviewName.trim(),
+                                      rating: reviewRating,
+                                      date: "Just now",
+                                      text: reviewText.trim(),
+                                      verified: false,
+                                    };
+                                    const updated = [newReview, ...userReviews];
+                                    setUserReviews(updated);
+                                    localStorage.setItem(`reviews-${id}`, JSON.stringify(updated));
+                                    setReviewName("");
+                                    setReviewText("");
+                                    setReviewRating(5);
+                                    setShowReviewForm(false);
+                                  }}
+                                  disabled={!reviewName.trim() || !reviewText.trim()}
+                                  className="w-full rounded-xl py-3 text-sm font-semibold transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                  style={{
+                                    backgroundColor: reviewName.trim() && reviewText.trim() ? "#408A71" : "rgba(64,138,113,0.2)",
+                                    color: reviewName.trim() && reviewText.trim() ? "#091413" : "#6B7280",
+                                  }}
+                                >
+                                  Submit Review
+                                </button>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
                         <div
                           style={{
                             height: "1px",
                             backgroundColor: "rgba(64,138,113,0.1)",
                           }}
                         />
+
+                        {/* User Reviews */}
+                        {userReviews.map((review, i) => (
+                          <div
+                            key={`user-${i}`}
+                            className="py-4"
+                            style={{
+                              borderBottom: i < userReviews.length - 1 || REVIEWS.length > 0 ? "1px solid rgba(64,138,113,0.1)" : "none",
+                            }}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold"
+                                  style={{
+                                    backgroundColor: "rgba(216,169,74,0.15)",
+                                    color: "#D8A94A",
+                                  }}
+                                >
+                                  {review.name.charAt(0)}
+                                </div>
+                                <div>
+                                  <p className="text-xs font-semibold" style={{ color: "#FFFFFF" }}>
+                                    {review.name}
+                                    <span
+                                      className="ml-1.5 text-[9px] font-medium px-1.5 py-0.5 rounded-full"
+                                      style={{
+                                        backgroundColor: "rgba(216,169,74,0.15)",
+                                        color: "#D8A94A",
+                                      }}
+                                    >
+                                      New
+                                    </span>
+                                  </p>
+                                  <p className="text-[10px]" style={{ color: "#6B7280" }}>
+                                    {review.date}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-0.5">
+                                {[...Array(5)].map((_, j) => (
+                                  <Star
+                                    key={j}
+                                    className={`h-3 w-3 ${
+                                      j < review.rating
+                                        ? "fill-[#D8A94A] text-[#D8A94A]"
+                                        : "fill-white/10 text-white/10"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                            <p className="text-xs mt-3 leading-relaxed" style={{ color: "#9CA3AF" }}>
+                              {review.text}
+                            </p>
+                          </div>
+                        ))}
+
+                        {/* Default Reviews */}
                         {REVIEWS.map((review, i) => (
                           <div
-                            key={i}
+                            key={`default-${i}`}
                             className="py-4"
                             style={{
                               borderBottom: i < REVIEWS.length - 1 ? "1px solid rgba(64,138,113,0.1)" : "none",
