@@ -8,6 +8,8 @@ import { WishlistProvider } from "@/context/WishlistContext";
 import { FlyToCartProvider } from "@/context/FlyToCartContext";
 import LuxeHeader from "@/components/luxe/LuxeHeader";
 import MobileBottomNav from "@/components/luxe/MobileBottomNav";
+import SalePopup from "@/components/ui/SalePopup";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 const CartDrawer = dynamic(() => import("@/components/luxe/CartDrawer"), { ssr: false });
 const Footer = dynamic(() => import("@/components/footer/Footer"), { ssr: false });
@@ -23,6 +25,8 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             <main className="flex-1 pb-20 lg:pb-0">{children}</main>
             <MobileBottomNav />
             <Footer />
+            <SalePopup />
+            <CookieConsent />
           </FlyToCartProvider>
         </WishlistProvider>
       </CartProvider>
