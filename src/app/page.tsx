@@ -12,9 +12,19 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <BenefitsSection />
-      <CategorySection />
-      <PromoBanner />
+      <div className="relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url(/section.png)",
+          }}
+        />
+        <div className="relative z-10">
+          <BenefitsSection />
+          <CategorySection />
+          <PromoBanner />
+        </div>
+      </div>
       <ProductGrid />
     </>
   );
