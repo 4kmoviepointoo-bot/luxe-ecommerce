@@ -38,39 +38,55 @@ export default function CategorySection() {
         </motion.a>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 -mx-1 px-1">
-        {CATEGORIES.map((cat, i) => (
-          <motion.div
-            key={cat.name}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35, delay: i * 0.06 }}
-          >
-            <Link
-              href="/shop"
-              className={`flex flex-col items-center gap-2.5 px-6 py-4 rounded-2xl border transition-all duration-300 min-w-[90px] ${
-                cat.active
-                  ? "bg-gradient-to-b from-emerald/15 to-emerald/5 border-emerald/30 shadow-[0_0_20px_rgba(139,232,167,0.1)]"
-                  : "bg-[#081914]/60 border-emerald/10 hover:border-emerald/20 hover:bg-[#0B211B]/60"
-              }`}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="rounded-2xl overflow-hidden"
+        style={{
+          backgroundColor: "#050D0B",
+          border: "1px solid rgba(64,138,113,0.15)",
+        }}
+      >
+        <div className="flex gap-0 overflow-x-auto no-scrollbar">
+          {CATEGORIES.map((cat, i) => (
+            <motion.div
+              key={cat.name}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
+              className="flex-1 min-w-[100px]"
             >
-              <cat.icon
-                className={`h-5 w-5 ${
-                  cat.active ? "text-emerald" : "text-[#AEB8B3]"
+              <Link
+                href="/shop"
+                className={`flex flex-col items-center gap-2.5 px-4 py-5 transition-all duration-300 w-full ${
+                  cat.active
+                    ? "bg-emerald/10"
+                    : "hover:bg-emerald/5"
                 }`}
-              />
-              <span
-                className={`text-xs font-medium ${
-                  cat.active ? "text-emerald" : "text-[#AEB8B3]"
-                }`}
+                style={{
+                  borderRight: i < CATEGORIES.length - 1 ? "1px solid rgba(64,138,113,0.1)" : "none",
+                }}
               >
-                {cat.name}
-              </span>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+                <cat.icon
+                  className={`h-5 w-5 ${
+                    cat.active ? "text-emerald" : "text-[#AEB8B3]"
+                  }`}
+                />
+                <span
+                  className={`text-xs font-medium ${
+                    cat.active ? "text-emerald" : "text-[#AEB8B3]"
+                  }`}
+                >
+                  {cat.name}
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }
