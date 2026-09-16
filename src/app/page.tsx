@@ -11,6 +11,35 @@ const PromoBanner = dynamic(() => import("@/components/luxe/PromoBanner"), { ssr
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "LUXE",
+            url: "https://ecomerence-jade.vercel.app",
+            logo: "https://ecomerence-jade.vercel.app/favicon.ico",
+            description: "Premium luxury shopping — watches, perfumes, bags, and accessories.",
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "LUXE — Premium Luxury Shopping",
+            url: "https://ecomerence-jade.vercel.app",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://ecomerence-jade.vercel.app/products?search={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
       <HeroSection />
       <BenefitsSection />
       <CategorySection />
